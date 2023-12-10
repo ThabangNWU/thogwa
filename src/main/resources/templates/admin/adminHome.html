@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  
+  <!-- Include Bootstrap and Bootstrap Colorpicker stylesheets -->
+  <link rel="stylesheet" href="css/colorpicker/bootstrap-colorpicker.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/admin/admin.css">
+</head>
+<body>
+  <header>
+    <div class="container-fluid">      
+      <div class="row">
+        <div class="col-md-2">        
+          <img class="logo" src="img/Thogwa medicals project/Thogwa Medicals logo .jpg" width="100" height="100" alt="">
+        </div>
+        <div class="col-md-10">
+          <div class="menu">
+            <!-- Add your menu items or navigation links here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="admin-section">
+    <div class="container-fluid">
+       <div class="row">
+        <div class="col-md-2">          
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam in inventore omnis. Omnis, incidunt, reprehenderit sunt porro, fuga corporis repellendus ipsum provident corrupti hic voluptatem eaque laboriosam quisquam nulla assumenda.</p>
+        </div>
+        <form id="productForm" action="#" method="post" enctype="multipart/form-data">
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-6">
+                <label for="category">Category</label>
+                <select name="" id="category">
+                  <option value="">Bag and cases</option>
+                  <option value="">Bag and cases</option>
+                  <option value="">Bag and cases</option>
+                </select>
+              </div>
+              <div class="col-md-"6>
+                <label for="subcategory">Sub category</label>
+                <select name="" id="subcategory">
+                  <option value="">bag and cases</option>
+                </select>
+              </div>
+             
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <input type="text" id="productName" name="productName" placeholder="Product name">
+              </div>
+              <div class="col-md-4">
+                <input type="text" id="price" name="price" placeholder="Price">
+              </div>
+              <div class="col-md-4">
+                <input type="text" id="quantity" name="quantity" placeholder="Quantity">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label for="product-information"></label>
+                <textarea name=""  id="description" cols="30" rows="10"></textarea>
+              </div>
+              <div class="col-md-2">
+                <input type="file" id="fileInput" name="file">
+              </div>             
+            </div>
+            <button type="button" onclick="addProduct()">Add Product</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include Bootstrap and jQuery scripts -->
+  <script src="js/vendor/jquery-3.5.0.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  
+  <!-- Include Bootstrap Colorpicker script -->
+  <script src="css/colorpicker/bootstrap-colorpicker.js"></script>
+  <script type="text/javascript">
+    // Initialize the Bootstrap Colorpicker
+    $(function () {
+      $('.colorpicker').colorpicker();
+    });
+  </script>
+  <script>
+    function addProduct() {
+      // Capture form field values
+      const description = document.getElementById("description").value;
+      const name = document.getElementById("productName").value;
+      const price = document.getElementById("price").value;
+      const categoryId = document.getElementById("category").value;
+      const quantity = document.getElementById("quantity").value;
+      const fileInput = document.getElementById("fileInput");
+      
+      // Create FormData object and append form data
+      const formData = new FormData();
+      formData.append("description", description);
+      formData.append("name", name);
+      formData.append("price", price);
+      formData.append("categoryId", categoryId);
+      formData.append("quantity", quantity);
+      formData.append("file", fileInput.files[0]);
+  
+      // Make the fetch request
+      fetch("product/add/" + categoryId, {
+        method: "POST",
+        body: formData,
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Handle the response data as needed
+        console.log(data);
+      })
+      .catch(error => {
+        // Handle errors
+        console.error("Fetch error:", error);
+      });
+    }
+  </script>
+  
+  
+</body>
+</html>
