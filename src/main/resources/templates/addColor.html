@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Color</title>
+
+    <!-- Include Bootstrap and Bootstrap Colorpicker stylesheets -->
+    <link rel="stylesheet" th:href="@{'/css/bootstrap.min.css'}">
+    <link rel="stylesheet" th:href="@{'/css/colorpicker/bootstrap-colorpicker.css'}">
+</head>
+<body>
+
+<h2>Add Color to Product</h2>
+
+<form action="@{/product/addColor/{productId}(productId=${productId})}" method="post" th:object="${color}">
+    <input type="hidden" th:field="*{product.productId}" />
+    
+    <div class="col-md-4">
+        <label for="color">Color</label>
+        <input type="text" class="form-control colorpicker" th:field="*{colorHexCode}" />
+    </div>
+    
+    <input type="submit" value="Add Color" />
+</form>
+
+<a th:href="@{/products}">Back to Products</a>
+
+<script th:src="@{'/js/vendor/jquery-3.5.0.min.js'}"></script>
+<script th:src="@{'/js/bootstrap.min.js'}"></script>
+
+<!-- Include Bootstrap Colorpicker script using Thymeleaf syntax -->
+<script th:src="@{'/css/colorpicker/bootstrap-colorpicker.js'}"></script>
+
+<!-- Initialize the Bootstrap Colorpicker using Thymeleaf syntax -->
+<script type="text/javascript">
+    // Initialize the Bootstrap Colorpicker
+    $(function () {
+        $('.colorpicker').colorpicker();
+    });
+</script>
+
+</body>
+</html>

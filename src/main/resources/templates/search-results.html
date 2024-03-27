@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Search Results</title>
+</head>
+<body>
+
+<div class="content">
+  <div th:if="${not #lists.isEmpty(products.content)}">
+    <!-- Display search results -->
+    <div th:each="product : ${products.content}">
+      <!-- Display product information as needed -->
+      <p th:text="${product.name}"></p>
+      <!-- Add more fields as needed -->
+    </div>
+    <!-- Pagination -->
+    <div class="pagination">
+      <ul>
+        <li th:class="${products.first} ? 'disabled'">
+          <a th:href="@{/search/?pageSize=${selectedPageSize}&page=1}">&laquo;</a>
+        </li>
+        <!-- Add pagination links here -->
+        <!-- ... -->
+        <li th:class="${products.last} ? 'disabled'">
+          <a th:href="@{/search/?pageSize=${selectedPageSize}&page=${products.totalPages}}">&raquo;</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div th:if="${#lists.isEmpty(products.content)}">
+    <!-- Display a message when no products found -->
+    <p>No products found for the given search criteria.</p>
+  </div>
+</div>
+
+</body>
+</html>
