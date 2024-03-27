@@ -171,8 +171,9 @@ public class ProductService {
         }
         Collections.shuffle(productList);
         int randomSeriesLength = 8;
-        return productList.subList(0, randomSeriesLength);
+        return productList.subList(0, Math.min(randomSeriesLength, productList.size()));
     }
+
     public List<Product> getRandomFiveProduct() {
         List<Product> productList = productRepository.findAll();
         if (productList.isEmpty()) {
@@ -198,29 +199,7 @@ public class ProductService {
 
         return filterProducts.subList(0, 5);
     }
-//    public List<Product> topRated() {
-//        List<Product> products = productRepository.findAll();
-//        List<Product> filteredProducts = new ArrayList<>();
-//        if(products.size() > 8){
-//            for(Product product : products) {
-//                if(product.getTotalRating() != null) {
-//                    filteredProducts.add(product);
-//                }
-//            }
-//            Collections.shuffle(filteredProducts);
-//            int randomSeries = 8;
-//            return filteredProducts.subList(0,randomSeries);
-//        } else {
-//
-//            if (products.isEmpty()) {
-//                throw new RuntimeException("Couldn't find any product in DB");
-//            }
-//            Collections.shuffle(products);
-//            int randomSeriesLength = 8;
-//            return products.subList(0, randomSeriesLength);
-//        }
-//
-//    }
+
     public List<Product> BestSeller() {
 
         List<Order>  findAllOrders  = orderRepository.findAll();
