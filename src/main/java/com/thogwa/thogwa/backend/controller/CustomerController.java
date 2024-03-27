@@ -24,8 +24,8 @@ public class CustomerController {
 
     private final CustomerService customerService;
     @PostMapping("/registration")
-    public String saveCustomer(@ModelAttribute("user") User user, Model model, Set<String> roles) {
-        customerService.save(user,roles);
+    public String saveCustomer(@ModelAttribute("user") User user, Model model) {
+        customerService.save(user);
         model.addAttribute("message","Registered Successful");
         return "pages-register";
     }
@@ -42,8 +42,8 @@ public class CustomerController {
         return "register";
     }
     @PostMapping("/user/addNew")
-    public RedirectView addNew(User user,Set<String> roles, RedirectAttributes redirectAttributes) {
-        customerService.save(user,roles);
+    public RedirectView addNew(User user, RedirectAttributes redirectAttributes) {
+        customerService.save(user);
         RedirectView redirectView = new RedirectView("/login",true);
         redirectAttributes.addFlashAttribute("message", "You successfully registered! You can now login");
         return redirectView;
@@ -68,8 +68,8 @@ public class CustomerController {
     }
 
     @RequestMapping(value="users/update", method = {RequestMethod.PUT, RequestMethod.GET})
-    public String update(User user,Set<String> roles) {
-        customerService.save(user,roles);
+    public String update(User user) {
+        customerService.save(user);
         return "redirect:/users";
     }
 

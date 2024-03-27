@@ -28,7 +28,7 @@ public class CustomerService {
 
 
 
-    public User save(User userDto,Set<String> roleStr) {
+    public User save(User userDto) {
         User user = new User();
         String firstName = "";
         String lastName = "";
@@ -43,24 +43,24 @@ public class CustomerService {
         user.setUsername(userDto.getEmail());
         user.setMobileNumber(userDto.getMobileNumber());
 
-        Set<String> strRoles = roleStr;
-        Set<Role> roles = new HashSet<>();
-
-        if(strRoles == null) {
-            Role customer = roleRepository.findByName(ERole.ROLE_CUSTOMER).get();
-            roles.add(customer);
-        }
-        else {
-            strRoles.forEach( role -> {
-                switch (role) {
-                    case  "ADMIN" :
-                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN).get();
-                        roles.add(adminRole);
-                }
-            });
-        }
-
-        user.setRoles(roles);
+//        Set<String> strRoles = roleStr;
+//        Set<Role> roles = new HashSet<>();
+//
+//        if(strRoles == null) {
+//            Role customer = roleRepository.findByName(ERole.ROLE_CUSTOMER).get();
+//            roles.add(customer);
+//        }
+//        else {
+//            strRoles.forEach( role -> {
+//                switch (role) {
+//                    case  "ADMIN" :
+//                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN).get();
+//                        roles.add(adminRole);
+//                }
+//            });
+//        }
+//
+//        user.setRoles(roles);
 //        customer.setRoles(Arrays.asList(roleRepository.findByName("CUSTOMER")));
         return customerRepository.save(user);
     }

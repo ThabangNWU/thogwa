@@ -31,7 +31,6 @@ public class homePage {
         List<Product> popularProduct = productService.popularProduct();
         List<Product> topRated = productService.topRated();
         List<Product> discounts = productService.displayFiveDiscountProduct();
-
         modelAndView.addObject("categoryRandom", randomCategoryProducts);
         modelAndView.addObject("bestSeller", bestSeller);
         modelAndView.addObject("categoryFiveProduct", randomFiveCategory);
