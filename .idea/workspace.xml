@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a112f8da-3170-44a7-b2f0-04a9617a5195" name="Changes" comment="" />
+    <list default="true" id="a112f8da-3170-44a7-b2f0-04a9617a5195" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thogwa/thogwa/backend/controller/homePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thogwa/thogwa/backend/controller/homePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thogwa/thogwa/backend/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thogwa/thogwa/backend/service/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/thogwa/thogwa/backend/controller/homePage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/thogwa/thogwa/backend/controller/homePage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/thogwa/thogwa/backend/service/ProductService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/thogwa/thogwa/backend/service/ProductService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -64,5 +72,16 @@
       <updated>1711558663904</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

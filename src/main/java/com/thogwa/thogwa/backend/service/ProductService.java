@@ -19,21 +19,19 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
     @Autowired
     ProductRepository productRepository;
-     @Autowired
-     StorageService storageService;
-     @Autowired
-     CategoryRepository categoryRepository;
+    @Autowired
+    StorageService storageService;
+    @Autowired
+    CategoryRepository categoryRepository;
 
-     @Autowired
+    @Autowired
     OrderRepository orderRepository;
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
 
@@ -53,7 +51,7 @@ public class ProductService {
             product1.setHeaderid(product.getHeaderid());
             product1.setCategoryid(product.getCategoryid());
             product1.setCategory(product.getCategory());
-          return productRepository.save(product1);
+            return productRepository.save(product1);
         } catch (Exception ex) {
             ex.printStackTrace();
             return null;
@@ -71,7 +69,7 @@ public class ProductService {
             }
 
             if(product.getName() != null &&
-            !(product.getName().equals(product1.getName()))) {
+                    !(product.getName().equals(product1.getName()))) {
                 product1.setName(product.getName());
             }
             if(product.getDescription() != null &&
@@ -144,8 +142,8 @@ public class ProductService {
         return productRepository.findByCategory(category,pageable);
     }
     public Page<Product> findProductsByCategory(Integer pageNo, Integer pageSize, Integer categoryId) {
-       Pageable pageable = PageRequest.of(pageNo,pageSize);
-       return productRepository.getProductByCategoryId(categoryId,pageable);
+        Pageable pageable = PageRequest.of(pageNo,pageSize);
+        return productRepository.getProductByCategoryId(categoryId,pageable);
     }
     public Page<Product> filterByLowerPrice(Integer pageNo, Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNo,pageSize);
@@ -198,7 +196,7 @@ public class ProductService {
 
         return filterProducts.subList(0, 5);
     }
-//    public List<Product> topRated() {
+    //    public List<Product> topRated() {
 //        List<Product> products = productRepository.findAll();
 //        List<Product> filteredProducts = new ArrayList<>();
 //        if(products.size() > 8){
@@ -222,29 +220,39 @@ public class ProductService {
 //
 //    }
     public List<Product> BestSeller() {
+        List<Order> findAllOrders = orderRepository.findAll();
 
-        List<Order>  findAllOrders  = orderRepository.findAll();
-
-        if(findAllOrders.size() < 10) {
+        if (findAllOrders.size() < 10) {
             List<Product> productList = productRepository.findAll();
             if (productList.isEmpty()) {
                 throw new RuntimeException("Couldn't find any product in DB");
             }
             Collections.shuffle(productList);
-            int randomSeriesLength = 10;
+            int randomSeriesLength = Math.min(10, productList.size());
             return productList.subList(0, randomSeriesLength);
         }
-        List<Product> bestSellingProduct = new ArrayList<>();
-        for(Order order : findAllOrders) {
-           Product product = productRepository.findByName(order.getProductName());
-           bestSellingProduct.add(product);
+
+        Map<Product, Integer> productCountMap = new HashMap<>();
+        for (Order order : findAllOrders) {
+            Product product = productRepository.findByName(order.getProductName());
+            if (product != null) {
+                productCountMap.put(product, productCountMap.getOrDefault(product, 0) + 1);
+            }
         }
 
-        Collections.shuffle(bestSellingProduct);
-        int randomSeriesLength = 10;
+        List<Map.Entry<Product, Integer>> sortedProducts = productCountMap.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .limit(10)
+                .collect(Collectors.toList());
 
-        return bestSellingProduct.subList(0,randomSeriesLength);
+        List<Product> bestSellingProducts = new ArrayList<>();
+        for (Map.Entry<Product, Integer> entry : sortedProducts) {
+            bestSellingProducts.add(entry.getKey());
+        }
+
+        return bestSellingProducts;
     }
+
 
     public List<Product> topRated() {
 

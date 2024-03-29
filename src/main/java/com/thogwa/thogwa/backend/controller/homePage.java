@@ -16,14 +16,8 @@ public class homePage {
     @Autowired
     private ProductService productService;
 
-//    @GetMapping("/random/category")
-//    @ResponseBody
-//    public List<Product> getRandomAmountOfProducts() {
-//        return productService.getRandomAmountOfProducts();
-//    }
-//
     @GetMapping("")
-   public  ModelAndView getRandomAmountOfProducts() {
+    public  ModelAndView getRandomAmountOfProducts() {
         var modelAndView  = new ModelAndView("index");
         List<Product> randomCategoryProducts = productService.getRandomAmountOfProducts();
         List<Product> randomFiveCategory = productService.getRandomFiveProduct();
@@ -31,6 +25,7 @@ public class homePage {
         List<Product> popularProduct = productService.popularProduct();
         List<Product> topRated = productService.topRated();
         List<Product> discounts = productService.displayFiveDiscountProduct();
+
         modelAndView.addObject("categoryRandom", randomCategoryProducts);
         modelAndView.addObject("bestSeller", bestSeller);
         modelAndView.addObject("categoryFiveProduct", randomFiveCategory);
