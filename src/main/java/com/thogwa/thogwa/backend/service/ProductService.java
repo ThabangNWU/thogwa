@@ -169,6 +169,10 @@ public class ProductService {
         }
         Collections.shuffle(productList);
         int randomSeriesLength = 8;
+        int productListSize = productList.size();
+        if (productListSize < randomSeriesLength) {
+            randomSeriesLength = productListSize;
+        }
         return productList.subList(0, randomSeriesLength);
     }
     public List<Product> getRandomFiveProduct() {
